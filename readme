@@ -1,0 +1,42 @@
+# Currency Exchange System (Full-Stack)
+
+A complete real-time currency exchange simulation system. This project allows users to trade currencies (USD, EUR, GBP, CHF) against PLN using live market rates fetched from the National Bank of Poland (NBP).
+
+## 📂 Project Structure
+
+The project is divided into two main independent modules. **Please refer to the specific README files in each directory for detailed installation and usage instructions.**
+
+### 1. Backend (`/backend`)
+The server-side application that handles business logic, database operations, and authentication.
+* **Tech:** Java 17, Spring Boot 3.2, PostgreSQL, Docker.
+* **Key Features:** JWT Auth, Scheduled Rate Sync, Transaction History.
+* 👉 **[Go to Backend Documentation & Setup](./backend/README.md)**
+
+### 2. Frontend (`/frontend`)
+The user interface built for Mobile (iOS/Android) and Web.
+* **Tech:** React Native, Expo, Axios.
+* **Key Features:** Live Graphs, Wallet Management, Buy/Sell Interface.
+* 👉 **[Go to Frontend Documentation & Setup](./frontend/README.md)**
+
+---
+
+## 🚀 Quick Start Overview
+
+To run the full system locally, follow this order:
+
+1.  **Start the Backend first:**
+    Navigate to the `backend` folder and run the Docker containers to start the API and Database.
+    *(See backend README for docker commands)*
+
+2.  **Start the Frontend:**
+    Navigate to the `frontend` folder and run the Expo development server or build the Docker image for the web version.
+    *(See frontend README for npm/docker commands)*
+
+---
+
+## 🛠 Architecture
+
+* **Database:** PostgreSQL (Stores Users, Wallets, Transactions)
+* **API:** Spring Boot (Exposes REST Endpoints)
+* **Client:** React Native (Consumes API via REST)
+* **DevOps:** Docker Compose (Orchestrates the entire stack)

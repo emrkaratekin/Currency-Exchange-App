@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: exchange-api
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/exchange_db}
+    username: ${SPRING_DATASOURCE_USERNAME:exchange_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:exchange_pass}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET:mySecretKeyForJWTTokenGenerationThatIsAtLeast256BitsLong123456}
+  expiration: 86400000  # 24 hours in milliseconds
+
+nbp:
+  api:
+    url: https://api.nbp.pl/api/exchangerates/tables/A/?format=json
+
+app:
+  currencies:
+    - USD
+    - EUR
+    - GBP
+    - CHF
+  default-balance: 10000.00

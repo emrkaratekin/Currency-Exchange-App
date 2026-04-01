@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: exchange-db
+    environment:
+      POSTGRES_DB: exchange_db
+      POSTGRES_USER: exchange_user
+      POSTGRES_PASSWORD: exchange_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U exchange_user -d exchange_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - exchange-network
+
+  backend:
+    build: .
+    container_name: exchange-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/exchange_db
+      SPRING_DATASOURCE_USERNAME: exchange_user
+      SPRING_DATASOURCE_PASSWORD: exchange_pass
+      JWT_SECRET: mySecretKeyForJWTTokenGenerationThatIsAtLeast256BitsLong123456
+      APP_CURRENCIES: USD,EUR,GBP,CHF
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - exchange-network
+
+networks:
+  exchange-network:
+    name: exchange-network
+    driver: bridge
+
+volumes:
+  postgres_data:
